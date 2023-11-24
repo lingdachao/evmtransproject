@@ -1,0 +1,153 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: calc(100% - 200px);
+    max-width: 100%;
+    margin: 0 100px;
+    margin-top: 44px;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  input,
+  select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .data-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 100px;
+  }
+  
+  .data-item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 6px;
+    width: 100%;
+  }
+  
+  .data-item a {
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+    display: block;
+  }
+  
+  .data-item a:hover {
+    text-decoration: underline;
+  }
+
+
+
+  .switch-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .switch-label {
+    margin-right: 10px;
+    line-height: 34px;
+  }
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 40px; /* 调整开关按钮的宽度 */
+    height: 20px; /* 调整开关按钮的高度 */
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 20px; /* 调整开关按钮的边框半径 */
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px; /* 调整滑块的高度 */
+    width: 16px; /* 调整滑块的宽度 */
+    left: 2px; /* 调整滑块距离边框的距离 */
+    bottom: 2px; /* 调整滑块距离边框的距离 */
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+  }
+
+  .switch input:checked + .slider {
+    background-color: #4caf50;
+  }
+
+  .switch input:focus + .slider {
+    box-shadow: 0 0 1px #4caf50;
+  }
+
+  .switch input:checked + .slider:before {
+    -webkit-transform: translateX(16px);
+    -ms-transform: translateX(16px);
+    transform: translateX(16px);
+  }
+
+  #errorLabel {
+    color: red;
+  }

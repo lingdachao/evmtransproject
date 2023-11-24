@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethereum Transaction</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <main>
+    <form id="transactionForm">
+      <label for="rpc">RPC Type:</label  placeholder="选填">
+      <select id="transactionType"></select>
+      <br>
+      <label for="rpc">RPC:</label  placeholder="选填">
+      <input type="text" id="rpc">
+      <br>
+      <label for="data">Content:</label placeholder="选填">
+      <input type="text" id="data">
+      <br>
+      <div class="switch-container">
+        <label for="toggleSwitch" class="switch-label">是否16进制:</label>
+        <label class="switch" for="toggleSwitch">
+          <input type="checkbox" id="toggleSwitch">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <label for="explorer">Explorer:</label>
+      <input type="text" id="explorer" placeholder="选填">
+      <br>
+      <label for="privateKey">PrivateKey:</label>
+      <input type="text" id="privateKey" placeholder="选填">
+      <br>
+      <button type="button" onclick="submitTransaction()" id="submit">Submit Transaction</button>
+    </form>
+
+    <div>
+      <label id="errorLabel"></label>
+    </div>
+    <div class="data-container" id="dataContainer"></div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
+  <script src="index.js" type="module"></script>
+</body>
+
+</html>
