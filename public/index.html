@@ -11,19 +11,31 @@
 <body>
   <main>
     <form id="transactionForm">
-      <label for="rpc">RPC Type:</label  placeholder="选填">
+      <label for="rpc">RPC Type:</label>
       <select id="transactionType"></select>
       <br>
-      <label for="rpc">RPC:</label  placeholder="选填">
+      <label for="rpc">RPC:</label>
       <input type="text" id="rpc">
       <br>
-      <label for="data">Content:</label placeholder="选填">
+      <label for="data">Content:</label>
       <input type="text" id="data">
       <br>
+      <label for="count">Count:</label">
+      <input type="number" id="count" value="1">
+      <br>
       <div class="switch-container">
-        <label for="toggleSwitch" class="switch-label">是否16进制:</label>
-        <label class="switch" for="toggleSwitch">
-          <input type="checkbox" id="toggleSwitch">
+        <label for="toggleSwitchSelf" class="switch-label">是否转账给自己</label>
+        <label class="switch" for="toggleSwitchSelf">
+          <input type="checkbox" id="toggleSwitchSelf">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <label for="recive" id="recive_label">Receive:</label>
+      <input type="text" id="recive" value="0x0000000000000000000000000000000000000000">
+      <div class="switch-container">
+        <label for="toggleSwitchHex" class="switch-label">是否16进制</label>
+        <label class="switch" for="toggleSwitchHex">
+          <input type="checkbox" id="toggleSwitchHex">
           <span class="slider"></span>
         </label>
       </div>
@@ -31,7 +43,7 @@
       <input type="text" id="explorer" placeholder="选填">
       <br>
       <label for="privateKey">PrivateKey:</label>
-      <input type="text" id="privateKey" placeholder="选填">
+      <input type="text" id="privateKey">
       <br>
       <button type="button" onclick="submitTransaction()" id="submit">Submit Transaction</button>
     </form>

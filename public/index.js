@@ -36,10 +36,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // 获取开关元素 添加事件监听器
-    var toggleSwitch = document.getElementById('toggleSwitch');
-    toggleSwitch.addEventListener('change', function () {
-        window.isContentHexed = toggleSwitch.checked;
+    var toggleSwitchHex = document.getElementById('toggleSwitchHex');
+    toggleSwitchHex.addEventListener('change', function () {
+        window.isContentHexed = toggleSwitchHex.checked;
         console.log('开关状态:',  window.isContentHexed);
+    });
+
+    var toggleSwitchSelf = document.getElementById('toggleSwitchSelf'); 
+    var receiveLabel = document.getElementById('recive_label'); 
+    var receiveInput = document.getElementById('recive'); 
+    toggleSwitchSelf.addEventListener('change', function () {
+      console.log("xxxx:",toggleSwitchSelf.checked)
+        receiveLabel.style.display = toggleSwitchSelf.checked ? 'none' : 'block';
+        receiveInput.style.display = toggleSwitchSelf.checked ? 'none' : 'block';
     });
 
     // 字符串转16进制
@@ -57,11 +66,16 @@ document.addEventListener('DOMContentLoaded', function () {
         const rpc = document.getElementById('rpc').value;
         const privateKey = document.getElementById('privateKey').value || KEY_Config.privateKey;
         const errorLabel = document.getElementById('errorLabel');
+        var toggleSwitchSelf = document.getElementById('toggleSwitchSelf'); 
+        var receiveInput = document.getElementById('recive'); 
+        var countInput = document.getElementById('count');
+        window.count = parseInt(countInput.value); 
         window.web3 = new Web3(rpc);
   
         const addressMessage = web3.eth.accounts.privateKeyToAccount(privateKey);
         const senderAddress = addressMessage.address;
-        const recipientAddress = KEY_Config.recipientAddress;
+
+        const recipientAddress = toggleSwitchSelf.checked ?  senderAddress : receiveInput.value;
   
         // Convert Ether to Wei
         // const amountWei = window.web3.utils.toWei(amountEth, 'ether');
@@ -97,15 +111,22 @@ document.addEventListener('DOMContentLoaded', function () {
           })
           .then((receipt) => {
             console.log('Transaction receipt:', receipt);
+            errorLabel.textContent = 'success';
             const transactionHash = receipt.transactionHash;
             let txs = getArrayCookie('tx');
             if (txs == null) {
                 txs = [];
             }
-            txs.push(`${window.explore}/tx/${transactionHash}`);
+            txs.unshift(`${window.explore}/tx/${transactionHash}`);
             setArrayCookie('tx', txs);
             displayData(txs);
             changeBtnStatus(true);
+
+            let count = window.count - 1;
+            if(count > 0) {
+               countInput.value = count;
+               submitTransaction();
+            }
           })
           .catch((error) => {
             errorLabel.textContent = error.message;
