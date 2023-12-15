@@ -3,7 +3,7 @@ import { RPC_TYPE, KEY_Config } from './constants.js';
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // clearCookie('tx')
+    clearCookie('tx')
     //修改btn的状态
     function changeBtnStatus(isEnable) {
       const btn = document.getElementById('submit');
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Submit transaction function
     async function submitTransaction() {
       try {
-        const data = document.getElementById('data').value;
+        let data = document.getElementById('data').value;
         const rpc = document.getElementById('rpc').value;
         const privateKey = document.getElementById('privateKey').value || KEY_Config.privateKey;
         const errorLabel = document.getElementById('errorLabel');
@@ -84,22 +84,51 @@ document.addEventListener('DOMContentLoaded', function () {
         changeBtnStatus(false);
         errorLabel.textContent = "";
 
-        // 估算 gas 使用量
-        web3.eth.estimateGas({
+        const transactionTypeSelectValue = document.getElementById('transactionType').value;
+        // return
+        if(transactionTypeSelectValue == "reth"){
+          const currentChallenge = web3.utils.utf8ToHex('rETH');
+          let solution;
+          while (1) {
+            const random_value = web3.utils.randomHex(32);
+            const potential_solution = random_value;
+            const hashed_solution = web3.utils.soliditySha3(
+                { type: 'bytes32', value: potential_solution },
+                { type: 'bytes32', value: currentChallenge }
+            );
+            // console.log("random_value:",random_value)
+            // console.log("potential_solution:",potential_solution)
+        
+            if (hashed_solution.startsWith('0x7777')) {
+                solution = hashed_solution;
+                break;
+            }
+          }
+
+          data = {
+            "p": "rerc-20",
+            "op": "mint",
+            "tick": "rETH",
+            "id": solution,
+            'amt': "10000"
+          }
+
+          console.log("data:",data);
+        }
+
+        const baseJson = {
           from: senderAddress,
           to: recipientAddress,
           value: amountWei,
           data: window.isContentHexed ? data : stringToHex(data),
-        })
+        }
+
+        // 估算 gas 使用量
+        web3.eth.estimateGas(baseJson)
           .then((gasEstimate) => {
             // 构建交易对象
-            const transactionObject = {
-              from: senderAddress,
-              to: recipientAddress,
-              value: amountWei,
-              gas: gasEstimate,
-              data: window.isContentHexed ? data : stringToHex(data),
-            };
+            const gasObject = {gas: gasEstimate};
+            const transactionObject = { ...baseJson, ...gasObject };
   
             // 使用私钥进行签名
             console.log('transactionObjectt:', transactionObject);
@@ -131,11 +160,13 @@ document.addEventListener('DOMContentLoaded', function () {
           .catch((error) => {
             errorLabel.textContent = error.message;
             changeBtnStatus(true);
+            submitTransaction();
           });
   
       } catch (error) {
         errorLabel.textContent = error.message;
         changeBtnStatus(true);
+        submitTransaction();
       }
     }
   

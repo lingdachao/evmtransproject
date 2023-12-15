@@ -13,7 +13,7 @@
       "explore": "https://goerli.etherscan.io/"
     },
     "eth": {
-      "rpc": "https://go.getblock.io/1e5522696afc4cd2ba6201c713c8a5aa",
+      "rpc": "https://go.getblock.io/21af3bfa10514da98ef48e542deebf9e",
       "explore": "https://etherscan.io/"
     },
     "zksync": {
@@ -59,6 +59,14 @@
     "heco": {
       "rpc": "https://go.getblock.io/7b6608fd66784aaf8f8036e0e5a9304b",
       "explore": "https://hecoinfo.com/"
+    },
+    "mantle": {
+      "rpc": "https://rpc.mantle.xyz",
+      "explore": "https://explorer.mantle.xyz/"
+    },
+    "cro": {
+      "rpc": "https://evm.cronos.org",
+      "explore": "https://cronoscan.com/"
     }
   }
   
